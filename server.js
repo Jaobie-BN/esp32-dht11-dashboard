@@ -55,14 +55,10 @@ const readingSchema = new mongoose.Schema(
     deviceId: { type: String, default: 'esp32-1', index: true },
     temperature: { type: Number, required: true },
     humidity: { type: Number, required: true },
-    // TTL 30 นาที: หมดอายุอัตโนมัติ
-    ts: { type: Date, default: Date.now, expires: 1800 }  // <-- เปลี่ยนตรงนี้
+    ts: { type: Date, default: () => new Date(), index: true }
   },
   { versionKey: false }
 );
-
-// (แนะนำ) คอมพาวด์อินเด็กซ์ให้คิวรีล่าสุดเร็วขึ้น
-readingSchema.index({ deviceId: 1, ts: -1 });
 
 const Reading = mongoose.model('Reading', readingSchema);
 
@@ -120,14 +116,14 @@ app.post('/ingest', requireApiKey, async (req, res) => {
 
 // อ่านค่าใหม่สุด
 app.get('/api/readings/latest', async (_req, res) => {
-  const doc = await Reading.findOne().sort({ ts: -1 }).lean();
+  const doc = await Reading.findOne().sort({ ts: -1 });
   return res.json(doc ?? {});
 });
 
 // อ่านรายการล่าสุด (สำหรับกราฟ)
 app.get('/api/readings/recent', async (req, res) => {
   const limit = Math.min(parseInt(req.query.limit || '50', 10), 500);
-  const list = await Reading.find().sort({ ts: -1 }).limit(limit).lean();
+  const list = await Reading.find().sort({ ts: -1 }).limit(limit);
   return res.json(list.reverse());
 });
 
