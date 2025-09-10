@@ -31,6 +31,7 @@ Thumbs.db
 *.map
 build/
 sdkconfig
+*.old
 
 * text=auto
 *.js text eol=lf
