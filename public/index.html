@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <title>ESP32 DHT11 Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; margin: 24px; }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+    .row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .metric { flex: 1 1 220px; font-size: 32px; }
+    small { color: #666; display: block; margin-top: 6px; }
+    canvas { max-width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>ESP32 DHT11 Dashboard</h1>
+
+    <div class="row">
+      <div class="card metric">
+        <div>🌡️ <span id="temp">--</span> °C</div>
+        <small id="tempTime">–</small>
+      </div>
+      <div class="card metric">
+        <div>💧 <span id="hum">--</span> %</div>
+        <small id="humTime">–</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>History (ล่าสุด ~50 จุด)</h3>
+      <canvas id="chart" height="100"></canvas>
+    </div>
+  </div>
+
+  <!-- โหลด client script จาก server ตัวเอง ไม่ต้องพึ่ง CDN -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/chart.umd.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

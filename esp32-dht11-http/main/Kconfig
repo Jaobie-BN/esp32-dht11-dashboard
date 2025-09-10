@@ -1,0 +1,26 @@
+menu "App Configuration"
+    config APP_WIFI_SSID
+        string "WiFi SSID"
+        default "YOUR_WIFI"
+
+    config APP_WIFI_PASS
+        string "WiFi Password"
+        default "YOUR_PASS"
+
+    config APP_API_URL
+        string "API URL (POST endpoint)"
+        default "https://your-app.onrender.com/api/readings"
+
+    config APP_API_KEY
+        string "X-API-Key"
+        default "supersecret123"
+
+    config APP_DEVICE_ID
+        string "Device ID"
+        default "esp32-1"
+
+    config APP_POST_INTERVAL_SEC
+        int "Post interval (seconds)"
+        default 5
+        range 2 3600
+endmenu

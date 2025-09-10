@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: esp-dht-server
+    env: node
+    plan: free
+    buildCommand: "npm ci"
+    startCommand: "npm start"
+    autoDeploy: true
+    envVars:
+      - key: MONGODB_URI
+        sync: false   # ใส่ค่าใน Dashboard เอง
+      - key: API_KEY
+        sync: false   # ใส่ค่าใน Dashboard เอง
+      - key: DB_NAME
+        value: esp
+      - key: COLLECTION
+        value: dht11
+      - key: PORT
+        value: 3000
